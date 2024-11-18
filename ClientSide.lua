@@ -9,7 +9,7 @@ local TweenService = game:GetService("TweenService")
 local player = Players.LocalPlayer
 
 -- GitHub link to the server-side script (raw URL)
-local serverScriptUrl = "https://raw.githubusercontent.com/your-repo-name/server-side-script/main.lua"
+local serverScriptUrl = "https://github.com/FinlayC1/Stormzy/blob/main/ServerSide.lua"
 
 -- Example: Fetch the server-side script content
 local success, response = pcall(function()
