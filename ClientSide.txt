@@ -36,14 +36,18 @@ local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = player:WaitForChild("PlayerGui")
 
 -- Panel Frame (rounded corners, gradient)
-local PanelFrame = Instance.new("Frame")
-PanelFrame.Size = UDim2.new(0, 450, 0, 750)
-PanelFrame.Position = UDim2.new(0, 20, 0, 20)
-PanelFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-PanelFrame.BorderSizePixel = 0
-PanelFrame.BorderRadius = UDim.new(0, 10)
-PanelFrame.BackgroundTransparency = 0.3
-PanelFrame.Parent = ScreenGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame.Parent = game.Players.LocalPlayer.PlayerGui
+
+-- Adding rounded corners using UICorner
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)  -- Adjust the radius as needed
+corner.Parent = frame
 
 -- UI title
 local TitleLabel = Instance.new("TextLabel")
