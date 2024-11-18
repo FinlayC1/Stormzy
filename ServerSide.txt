@@ -1,0 +1,46 @@
+-- Server-Side Script: Actions & Anti-Cheat
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RemoteEvent = ReplicatedStorage:WaitForChild("TrollRemoteEvent")
+local Teams = game:GetService("Teams")
+local Players = game:GetService("Players")
+
+-- Anti-Cheat Bypass: Just ensure that RemoteEvent exists and trust it to handle requests.
+if not RemoteEvent then
+    warn("RemoteEvent not found. Anti-cheat bypass in place.")
+    RemoteEvent = Instance.new("RemoteEvent")
+    RemoteEvent.Name = "TrollRemoteEvent"
+    RemoteEvent.Parent = ReplicatedStorage
+end
+
+-- Handle incoming requests from the client
+RemoteEvent.OnServerEvent:Connect(function(player, action, target)
+    if action == "KillPlayer" then
+        local targetPlayer = Players:FindFirstChild(target)
+        if targetPlayer then
+            -- Kill player logic
+            targetPlayer:BreakJoints()  -- Forcefully kill the player
+
+            -- Screen Flash on Kill
+            game.ReplicatedStorage:WaitForChild("TrollRemoteEvent"):FireClient(targetPlayer, "screenFlash") 
+            
+            -- Send chat message
+            targetPlayer:SendMessage("I got ended by Stormzy. Such shame!")
+
+        end
+    elseif action == "FlingPlayer" then
+        local targetPlayer = Players:FindFirstChild(target)
+        if targetPlayer then
+            -- Fling logic: Applying BodyVelocity to fling
+            local bodyVelocity = Instance.new("BodyVelocity")
+            bodyVelocity.MaxForce = Vector3.new(10000, 10000, 10000)
+            bodyVelocity.Velocity = Vector3.new(100, 100, 100)
+            bodyVelocity.Parent = targetPlayer.Character.HumanoidRootPart
+        end
+    elseif action == "ChangeTeam" then
+        local targetTeam = Teams:FindFirstChild(target)
+        if targetTeam then
+            player.Team = targetTeam
+        end
+    end
+end)
